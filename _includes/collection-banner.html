@@ -10,7 +10,7 @@
     A decorative banner featuring a large background image stretched across the full screen with the title + tagline overlaid on top. This feature can be used on any page by adding "banner-featured-image" to the page front matter. 
     By default, this feature is added to the "home-infographic" layout automatically, with the default options configured in "theme.yml" Home Page section. It can be turned off on "home-infographic" by adding "banner-featured-image: false" to the page stub front matter.
     Adding "banner-featured-image: true" to any page front matter will add the same default feature as configured in "theme.yml". 
-    However, the feature can be fully customized on any page kmby using the front matter options: 
+    However, the feature can be fully customized on any page by using the front matter options: 
         - banner-featured-image: an objectid, relative path to image in this project, or full url to any image.
         - banner-image-position: set background-position for featured image, "center", "top", "bottom"
         - banner-padding: additional padding added to the feature to increase size. Give value in em or px, e.g. "5em"
@@ -30,6 +30,9 @@
         {% capture jumboSrc %}{{ site.data.featured_item.src | relative_url }}{% endcapture %}
         {% capture jumboLink %}{{ site.data.featured_item.link | relative_url }}{% endcapture %}
     {%- endif -%}
+    <!-- just set jumbosrc and link to nothing instead of commenting out. the ifelse should handle. -->
+    {% capture jumboSrc %}{% endcapture %}
+    {% capture jumboLink %}{% endcapture %}
 
 <style>
 #home-banner {
@@ -62,8 +65,7 @@
             {% if page.banner-sub-heading != false and page.banner-sub-heading or site.tagline %}<p class="mb-0">{{ page.banner-sub-heading | default: site.tagline }}</p>{% endif %}
         </div>
     </div>
-    {% comment %} {% if jumboLink != '' %} {% endcomment %}
-    {% comment %} <a class="text-white fs-6 position-absolute bottom-0 end-0 px-2 bg-dark bg-opacity-75" href="{{ jumboLink }}" title="Visit background image record">Featured Image</a>{% endif %} {% endcomment %} {% endcomment %}
+    {% if jumboLink != '' %} <a class="text-white fs-6 position-absolute bottom-0 end-0 px-2 bg-dark bg-opacity-75" href="{{ jumboLink }}" title="Visit background image record">Featured Image</a>{% endif %} 
 </div>
 {%- else -%}
 <div class="container">
